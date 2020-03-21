@@ -48,24 +48,45 @@ public class BookEntry {
 
     }
 
+    /**
+     * @return title - String containing the title of the book
+     */
     public String getTitle(){
         return this.title;
     }
 
+    /**
+     * @return authors - String array containing the list of authors of a book
+     */
     public String[] getAuthors() {
         return authors;
     }
 
+    /**
+     * @return rating - float containing the rating of a book between 0 and 5
+     */
     public float getRating() {
         return rating;
     }
 
+    /**
+     * @return ISBN - String containing the books ISBN number
+     */
     public String getISBN() {
         return ISBN;
     }
 
+    /**
+     * @return pages - int containing the number of pages in the book
+     */
     public int getPages() { return pages; }
 
+
+    /**
+     * Method that overrides the Object superclass method and
+     * displays the object's data in a specific format
+     * @return output - String containing the formatted string
+     */
 
     @Override
     public String toString(){
@@ -85,6 +106,14 @@ public class BookEntry {
         return output;
     }
 
+    /**
+     * Method that overrides the Object superclass method and
+     * checks that every data value in the instance and the object
+     * that is compared are equal
+     * @param o - Object being compared to the instance
+     * @return boolean value representing whether the two objects are equal
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,6 +126,9 @@ public class BookEntry {
                 ISBN.equals(bookEntry.ISBN);
     }
 
+    /**
+     * @return integer
+     */
     @Override
     public int hashCode() {
         int result = Objects.hash(title, rating, ISBN, pages);
