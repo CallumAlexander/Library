@@ -29,12 +29,12 @@ public class BookEntry {
      */
     public BookEntry(String name, String[] authors, float rating, String ISBN, int pages){
 
-        // Exception handling - NullPointerExceptions
-        if (name.equals(null)){throw new NullPointerException("Name argument is null");}
-        if (authors.equals(null)){throw new NullPointerException("Authors array is null");}
-        if (rating == 0.0f){throw new NullPointerException("Rating is empty");}
-        if (ISBN.equals(null)){throw new NullPointerException("ISBN is null");}
-        if (pages == 0){throw new NullPointerException("Pages is empty");}
+        // Exception handling - Null Arguments
+        Objects.requireNonNull(name, "ERROR: Name argument is null");
+        Objects.requireNonNull(authors, "ERROR: Authors argument is null");
+        Objects.requireNonNull(rating, "ERROR: Rating argument is null");
+        Objects.requireNonNull(ISBN, "ERROR: ISBN argument is null");
+        Objects.requireNonNull(pages, "ERROR: Pages argument is null");
 
         // Exception handling - IllegalArgumentExceptions
         if (pages < 0){throw new IllegalArgumentException("Pages out of range");}
