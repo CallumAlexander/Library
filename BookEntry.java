@@ -8,7 +8,7 @@ public class BookEntry {
 
 //  *** Data ***
 
-    private final String name;        // Name of the book
+    private final String title;       // Name of the book
     private final String[] authors;   // Array of authors
     private final float rating;       // Rating of the book
     private final String ISBN;        // ISBN of the book
@@ -40,7 +40,7 @@ public class BookEntry {
         if (pages < 0){throw new IllegalArgumentException("Pages out of range");}
         if (rating < 0 || rating > 5){throw new IllegalArgumentException("Rating out of range");}
 
-        this.name = name;
+        this.title = name;
         this.authors = authors;
         this.rating = rating;
         this.ISBN = ISBN;
@@ -49,7 +49,7 @@ public class BookEntry {
     }
 
     public String getTitle(){
-        return this.name;
+        return this.title;
     }
 
     public String[] getAuthors() {
@@ -64,9 +64,7 @@ public class BookEntry {
         return ISBN;
     }
 
-    public int getPages() {
-        return pages;
-    }
+    public int getPages() { return pages; }
 
 
     @Override
@@ -74,14 +72,14 @@ public class BookEntry {
 
         String output = "";
 
-        output = output + name + "\n";
+        output = output + title + "\n";
         output = output + "by ";
         for (int i = 0; i < authors.length-1; i++){
             output = output + authors[i] + ", ";
         }
-        output = output + authors[-1]+ "\n";
-        output = output + "Rating:" + String.format("%.2g%n", rating) + "\n";
-        output = output + "ISBN" + ISBN + "\n";
+        output = output + authors[authors.length-1]+ "\n";
+        output = output + "Rating: " + String.format("%.3g%n", rating);
+        output = output + "ISBN: " + ISBN + "\n";
         output = output + pages + " pages";
 
         return output;
@@ -94,14 +92,14 @@ public class BookEntry {
         BookEntry bookEntry = (BookEntry) o;
         return Float.compare(bookEntry.rating, rating) == 0 &&
                 pages == bookEntry.pages &&
-                name.equals(bookEntry.name) &&
+                title.equals(bookEntry.title) &&
                 Arrays.equals(authors, bookEntry.authors) &&
                 ISBN.equals(bookEntry.ISBN);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, rating, ISBN, pages);
+        int result = Objects.hash(title, rating, ISBN, pages);
         result = 31 * result + Arrays.hashCode(authors);
         return result;
     }
