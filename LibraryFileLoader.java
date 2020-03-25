@@ -70,7 +70,7 @@ public class LibraryFileLoader {
     public List<BookEntry> parseFileContent() {
 
         ArrayList<BookEntry> books = new ArrayList<>();
-        String handle = "";
+        String handle;
 
         String[] dataArray;
         List<String> authorArrayList;
@@ -100,10 +100,15 @@ public class LibraryFileLoader {
 
     }
 
+    /**
+     * Function that parses the author String into a list of String
+     * @param authorString - String containing the authors, parse by '-'
+     * @return List<String> that contains the authors of the book
+     */
+
     public List<String> parseAuthors(String authorString){
-        // Author string parse character
-        char AUTHOR_PARSE_CHAR = '-';
-        return Arrays.asList(authorString.split(Character.toString(AUTHOR_PARSE_CHAR)));
+        char authorParseChar = '-';
+        return Arrays.asList(authorString.split(Character.toString(authorParseChar)));
     }
 }
 
