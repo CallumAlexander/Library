@@ -1,10 +1,8 @@
+import java.awt.print.Book;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /** 
  * Class responsible for loading
@@ -24,8 +22,11 @@ public class LibraryFileLoader {
      */
     private List<String> fileContent;
 
-    //The length of the data in BookEntry
+    // The length of the data in BookEntry
     private final int RECORD_SIZE = 5;
+
+    // Author string parse character
+    private final char AUTHOR_PARSE_CHAR = '-';
 
     /** Create a new loader. No file content has been loaded yet. */
     public LibraryFileLoader() { 
@@ -72,28 +73,42 @@ public class LibraryFileLoader {
      * if no book data has been loaded yet.
      * @throws UnsupportedOperationException Not implemented yet!
      */
-    public List<BookEntry> parseFileContent(List<String> fileContent) {
-        // TODO Remove exception and implement me
+    public List<BookEntry> parseFileContent() {
 
         ArrayList<BookEntry> books = new ArrayList<>();
         String handle = "";
-        String[] dataArray = new String[RECORD_SIZE];
-        String[] authorArray = new String[];
+
+        String[] dataArray;
+        List<String> authorArrayList;
 
         if (fileContent == null){
             System.err.print("ERROR: No content loaded before parsing");
             return books;
         }
         for (int i = 1; i < fileContent.size(); i++){   //from index 1 to avoid the file header
+
             handle = fileContent.get(i);
             dataArray = handle.split(",");
+            String authorString = dataArray[1];
+            authorArrayList = parseAuthors(authorString);
+            String[] authorArray = new String[authorArrayList.size()];
+            authorArray = authorArrayList.toArray(authorArray);
 
-
-
-
+            books.add(new BookEntry(dataArray[0],
+                                    authorArray,
+                                    Float.parseFloat(dataArray[2]),
+                                    dataArray[3],
+                                    Integer.parseInt(dataArray[4])));
         }
 
+        return books;
 
-        // throw new UnsupportedOperationException("Parsing library files is not yet implemented.");
+
+    }
+
+    public List<String> parseAuthors(String authorString){
+        List<String> authorArray = Arrays.asList(authorString.split(Character.toString(AUTHOR_PARSE_CHAR)));
+        return authorArray;
     }
 }
+
