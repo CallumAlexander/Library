@@ -22,12 +22,6 @@ public class LibraryFileLoader {
      */
     private List<String> fileContent;
 
-    // The length of the data in BookEntry
-    private final int RECORD_SIZE = 5;
-
-    // Author string parse character
-    private final char AUTHOR_PARSE_CHAR = '-';
-
     /** Create a new loader. No file content has been loaded yet. */
     public LibraryFileLoader() { 
         fileContent = null;
@@ -107,8 +101,9 @@ public class LibraryFileLoader {
     }
 
     public List<String> parseAuthors(String authorString){
-        List<String> authorArray = Arrays.asList(authorString.split(Character.toString(AUTHOR_PARSE_CHAR)));
-        return authorArray;
+        // Author string parse character
+        char AUTHOR_PARSE_CHAR = '-';
+        return Arrays.asList(authorString.split(Character.toString(AUTHOR_PARSE_CHAR)));
     }
 }
 
