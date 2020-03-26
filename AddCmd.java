@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class AddCmd extends LibraryCommand {
 
+    // TODO - JAVA DOC for all methods here
+
     protected Path argument;
 
     @Override
