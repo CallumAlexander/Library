@@ -5,11 +5,17 @@ import java.util.Objects;
 public class ListCmd extends LibraryCommand {
 
     // TODO - JAVA DOC for all methods
+    // TODO - Implement IllegalArgumentExceptions for all methods
 
+    // ** DATA **
+
+    // String instance field that stores the argument
     protected String argument;
 
+    // String instance field that stores the long argument keyword
     protected static final String LONG_ARGUMENT = "long";
 
+    // String instance field that stores the short argument keyword
     protected static final String SHORT_ARGUMENT = "short";
 
     /**
@@ -22,6 +28,11 @@ public class ListCmd extends LibraryCommand {
     public ListCmd(String argumentInput) { super(CommandType.LIST, argumentInput); }
 
 
+    /**
+     * Method that executes the command
+     * @param data book data to be considered for command execution.
+     * @throws NullPointerException if data is null
+     */
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData instance is null");
@@ -40,15 +51,16 @@ public class ListCmd extends LibraryCommand {
 
     }
 
+    /**
+     * Method that checks the inputted argument is valid
+     * @param argumentInput argument input for this command
+     * @return boolean value indicating whether the argument is valid
+     */
     @Override
     protected boolean parseArguments(String argumentInput){
-        // We do not require a null check for this method because it can be null
-        // Assuming that the arguments are case sensitive
-
         if (argumentInput == null || argumentInput.equals("")) argument = SHORT_ARGUMENT;
         else argument = argumentInput;
         return argument.equals(LONG_ARGUMENT) || argument.equals(SHORT_ARGUMENT);
-
     }
 
 

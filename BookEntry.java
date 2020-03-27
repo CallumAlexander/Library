@@ -6,7 +6,9 @@ import java.util.Objects;
  */
 public class BookEntry {
 
-//  *** Data ***
+    // TODO - Implement IllegalArgumentExceptions for all methods
+
+    // ** DATA **
 
     private final String title;       // Name of the book
     private final String[] authors;   // Array of authors
@@ -16,7 +18,7 @@ public class BookEntry {
 
 
 
-//  *** Methods ***
+    // ** METHODS **
 
     /**
      * Constructor for the BookEntry Class
