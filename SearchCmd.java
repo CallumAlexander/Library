@@ -33,7 +33,7 @@ public class SearchCmd extends LibraryCommand {
         List<BookEntry> books = data.getBookData();
         boolean found = false;
         for (BookEntry book : books) {
-            if (book.getTitle().contains(argument)) {
+            if (book.getTitle().toUpperCase().contains(argument.toUpperCase())) {
                 System.out.println(book.getTitle());
                 found = true;
             }
@@ -43,9 +43,9 @@ public class SearchCmd extends LibraryCommand {
 
     // TODO - java doc
     @Override
-    public boolean parseArguments(String argumentInput){
+    protected boolean parseArguments(String argumentInput){
         Objects.requireNonNull(argumentInput, "ERROR: Argument is null");
-        argument = argumentInput.strip().toUpperCase();
+        argument = argumentInput.strip();
         if (argumentInput.isBlank()) return false;
         return !containsWhitespace(argument);
     }
