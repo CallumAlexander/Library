@@ -1,6 +1,6 @@
+import java.awt.print.Book;
+import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RemoveCmd extends LibraryCommand {
 
@@ -9,12 +9,13 @@ public class RemoveCmd extends LibraryCommand {
     // String array containing the two arguments
     protected String[] arguments = new String[2];
 
-    // String field instance containing the argument for title
+    // String instance field containing the argument for title
     protected static final String TITLE = "TITLE";
 
-    // String field instance containing the argument for author
+    // String instance field containing the argument for author
     protected static final String AUTHOR = "AUTHOR";
 
+    // Integer instance field containing the number of arguments
     protected static final int NUMBER_OF_ARGUMENTS = 2;
 
 
@@ -30,11 +31,54 @@ public class RemoveCmd extends LibraryCommand {
      */
     public RemoveCmd(String argumentInput) { super(CommandType.REMOVE, argumentInput);}
 
+
+    // TODO - java doc
     @Override
     public void execute(LibraryData data) {
+        Objects.requireNonNull(data, "ERROR: library data is null");
+        List<BookEntry> books = data.getBookData();
+
+        if (arguments[0].equals(TITLE)) removeTitle(books);
+        else removeAuthor(books);
+
 
     }
 
+    private void removeTitle(List<BookEntry> books){
+        // TODO - Optimize search by combining searchcmd and removecmd searches
+        boolean found = false;
+        for (BookEntry book : books){
+            if (book.getTitle().toUpperCase().contains(arguments[1].toUpperCase())){    //Convert both to upper case to eliminate case sensitivity
+                books.remove(book);
+                System.out.println(arguments[1] + ": removed successfully.");
+                found = true;
+                break;
+            }
+        }
+        if (!found) System.out.println(arguments[1] + ": not found.");
+
+    }
+
+    private void removeAuthor(List<BookEntry> books){
+        int count = 0;
+        boolean found = false;
+
+        for (BookEntry book : books){
+            for (int i = 0; i < book.getAuthors().length; i++){
+                if (book.getAuthors()[i].toUpperCase().contains(arguments[1].toUpperCase())){
+                    found = true;
+                    books.remove(book);
+                    count ++;
+                    break;
+                }
+            }
+        }
+        if (found) System.out.println(count + " books removed for author: " + arguments[1]);
+        else System.out.println(arguments[1] + ": not found.");
+    }
+
+
+    // TODO - java doc
     @Override
     protected boolean parseArguments(String argumentInput) {
         Objects.requireNonNull(argumentInput, "ERROR: argument is null");
