@@ -1,4 +1,3 @@
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -6,7 +5,6 @@ import java.util.regex.Pattern;
 
 public class SearchCmd extends LibraryCommand {
 
-    // TODO - JAVA doc for all methods
     // TODO - Implement IllegalArgumentExceptions for all methods
 
     // ** DATA **
@@ -42,6 +40,13 @@ public class SearchCmd extends LibraryCommand {
     }
 
     // TODO - java doc
+
+    /**
+     * Checks that the arguments inputted are valid for this command
+     * @param argumentInput argument input for this command
+     * @return - boolean value indicating whether the argument is valid or not
+     * @throws NullPointerException if argumentInput is null
+     */
     @Override
     protected boolean parseArguments(String argumentInput){
         Objects.requireNonNull(argumentInput, "ERROR: Argument is null");
@@ -50,8 +55,13 @@ public class SearchCmd extends LibraryCommand {
         return !containsWhitespace(argument);
     }
 
-    // TODO - java doc
-    public boolean containsWhitespace(String argument){
+    /**
+     * Checks a string to see if it contains any whitespace
+      * @param argument - String containing the argument to check
+     * @return - boolean value indicating whether the argument contains whitespace
+     * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
+     */
+    private boolean containsWhitespace(String argument){
         Pattern whitespace = Pattern.compile("\\s");
         Matcher matcher = whitespace.matcher(argument);
         return matcher.find();
