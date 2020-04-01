@@ -1,4 +1,3 @@
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +31,11 @@ public class RemoveCmd extends LibraryCommand {
     public RemoveCmd(String argumentInput) { super(CommandType.REMOVE, argumentInput);}
 
 
-    // TODO - java doc
+    /**
+     * Executes the remove command
+     * @param data book data to be considered for command execution.
+     * @throws NullPointerException if the library data is null.
+     */
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: library data is null");
@@ -44,6 +47,10 @@ public class RemoveCmd extends LibraryCommand {
 
     }
 
+    /**
+     * Removes the book associated with the title from the list of books
+     * @param books - List of books containing all the books in the library
+     */
     private void removeTitle(List<BookEntry> books){
         // TODO - Optimize search by combining searchcmd and removecmd searches
         boolean found = false;
@@ -59,6 +66,10 @@ public class RemoveCmd extends LibraryCommand {
 
     }
 
+    /**
+     * Removes books associated with the author from the list of books
+     * @param books - List of BookEntry containing all the books in the library
+     */
     private void removeAuthor(List<BookEntry> books){
         int count = 0;
         boolean found = false;
@@ -78,7 +89,11 @@ public class RemoveCmd extends LibraryCommand {
     }
 
 
-    // TODO - java doc
+    /**
+     * Checks that the arguments inputted are valid for this command
+     * @param argumentInput argument input for this command
+     * @return - boolean value indicating whether the arguments are valid or not
+     */
     @Override
     protected boolean parseArguments(String argumentInput) {
         Objects.requireNonNull(argumentInput, "ERROR: argument is null");

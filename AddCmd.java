@@ -5,7 +5,7 @@ import java.util.Objects;
 public class AddCmd extends LibraryCommand {
 
     // TODO - Implement IllegalArgumentExceptions for all methods
-    // TODO - create a method that checks that there is only one space between argument and command
+
 
     // ** DATA **
 
