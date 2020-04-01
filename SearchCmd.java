@@ -9,7 +9,7 @@ public class SearchCmd extends LibraryCommand {
 
     // ** DATA **
 
-    protected String argument;
+    private String argument;
 
 
     // ** METHODS **
@@ -39,7 +39,6 @@ public class SearchCmd extends LibraryCommand {
         if (!found) System.out.println("No hits found for search term: " + argument);
     }
 
-    // TODO - java doc
 
     /**
      * Checks that the arguments inputted are valid for this command
@@ -55,6 +54,7 @@ public class SearchCmd extends LibraryCommand {
         return !containsWhitespace(argument);
     }
 
+
     /**
      * Checks a string to see if it contains any whitespace
       * @param argument - String containing the argument to check
@@ -62,6 +62,7 @@ public class SearchCmd extends LibraryCommand {
      * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
      */
     private boolean containsWhitespace(String argument){
+        Objects.requireNonNull(argument, "ERROR: Argument is null");
         Pattern whitespace = Pattern.compile("\\s");
         Matcher matcher = whitespace.matcher(argument);
         return matcher.find();

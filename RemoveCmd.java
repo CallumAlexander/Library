@@ -1,12 +1,17 @@
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RemoveCmd extends LibraryCommand {
 
     // ** DATA **
 
     // String array containing the two arguments
-    protected String[] arguments = new String[2];
+    //public String[] arguments = new String[2];
+
+    public String specifer;
+    public String val;
 
     // String instance field containing the argument for title
     protected static final String TITLE = "TITLE";
@@ -41,7 +46,7 @@ public class RemoveCmd extends LibraryCommand {
         Objects.requireNonNull(data, "ERROR: library data is null");
         List<BookEntry> books = data.getBookData();
 
-        if (arguments[0].equals(TITLE)) removeTitle(books);
+        if (specifer.equals(TITLE)) removeTitle(books);
         else removeAuthor(books);
 
 
@@ -55,14 +60,14 @@ public class RemoveCmd extends LibraryCommand {
         // TODO - Optimize search by combining searchcmd and removecmd searches
         boolean found = false;
         for (BookEntry book : books){
-            if (book.getTitle().toUpperCase().contains(arguments[1].toUpperCase())){    //Convert both to upper case to eliminate case sensitivity
+            if (book.getTitle().toUpperCase().contains(val.toUpperCase())){    //Convert both to upper case to eliminate case sensitivity
                 books.remove(book);
-                System.out.println(arguments[1] + ": removed successfully.");
+                System.out.println(val + ": removed successfully.");
                 found = true;
                 break;
             }
         }
-        if (!found) System.out.println(arguments[1] + ": not found.");
+        if (!found) System.out.println(val + ": not found.");
 
     }
 
@@ -72,20 +77,17 @@ public class RemoveCmd extends LibraryCommand {
      */
     private void removeAuthor(List<BookEntry> books){
         int count = 0;
-        boolean found = false;
 
         for (BookEntry book : books){
             for (int i = 0; i < book.getAuthors().length; i++){
-                if (book.getAuthors()[i].toUpperCase().contains(arguments[1].toUpperCase())){
-                    found = true;
+                if (book.getAuthors()[i].toUpperCase().contains(val.toUpperCase())){
                     books.remove(book);
                     count ++;
                     break;
                 }
             }
         }
-        if (found) System.out.println(count + " books removed for author: " + arguments[1]);
-        else System.out.println(arguments[1] + ": not found.");
+        System.out.println(count + " books removed for author: " + val);
     }
 
 
@@ -97,13 +99,33 @@ public class RemoveCmd extends LibraryCommand {
     @Override
     protected boolean parseArguments(String argumentInput) {
         Objects.requireNonNull(argumentInput, "ERROR: argument is null");
-        String tempArgs = argumentInput.strip();
-        if (tempArgs.isBlank()) return false;
+        String[] tempArgsAsArray = new String[2];
 
-        arguments = tempArgs.split("\\s", NUMBER_OF_ARGUMENTS);
-        if (!arguments[0].equals(AUTHOR) && !arguments[0].equals(TITLE)) return false;
-        return true;
+        // Checking if the whole string is blank
+        if (argumentInput.isBlank()) return false;
+        if (!containsWhitespace(argumentInput)) return false;
 
+        // Checking if either of the arguments are blank
+        tempArgsAsArray = argumentInput.split("\\s", NUMBER_OF_ARGUMENTS);
+        if (tempArgsAsArray[0].isBlank() || tempArgsAsArray[1].isBlank()) return false;
+
+        // Assigning the arguments to object instance fields
+        specifer = tempArgsAsArray[0];
+        val = tempArgsAsArray[1];
+
+        return specifer.equals(AUTHOR) || specifer.equals(TITLE);
+    }
+
+    /**
+     * Checks a string to see if it contains any whitespace
+     * @param argument - String containing the argument to check
+     * @return - boolean value indicating whether the argument contains whitespace
+     * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
+     */
+    private boolean containsWhitespace(String argument){
+        Pattern whitespace = Pattern.compile("\\s");
+        Matcher matcher = whitespace.matcher(argument);
+        return matcher.find();
     }
 
 
