@@ -33,7 +33,8 @@ public class AddCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
-        Objects.requireNonNull(data, "ERROR: data parameter is null");
+        Objects.requireNonNull(data, "ERROR: LibraryData is null");
+        // TODO - check that the books array is not empty. if it is, print appropriate message
         data.loadData(argument);
     }
 

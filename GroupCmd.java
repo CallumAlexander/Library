@@ -28,6 +28,8 @@ public class GroupCmd extends LibraryCommand {
 
     @Override
     public void execute(LibraryData data) {
+        Objects.requireNonNull(data, "ERROR: LibraryData is null");
+        // TODO - check that the books array is not empty. if it is, print appropriate message
 
     }
 
@@ -36,6 +38,5 @@ public class GroupCmd extends LibraryCommand {
         Objects.requireNonNull(argumentInput, "ERROR: Argument is null");
         argument = argumentInput;
         return argument.equals(TITLE_ARGUMENT) || argument.equals(AUTHOR_ARGUMENT);
-
     }
 }

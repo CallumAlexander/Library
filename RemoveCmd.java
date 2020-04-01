@@ -43,7 +43,8 @@ public class RemoveCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
-        Objects.requireNonNull(data, "ERROR: library data is null");
+        Objects.requireNonNull(data, "ERROR: LibraryData is null");
+        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
 
         if (specifer.equals(TITLE)) removeTitle(books);

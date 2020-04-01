@@ -35,6 +35,7 @@ public class ListCmd extends LibraryCommand {
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData instance is null");
+        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
 
         // Prints header

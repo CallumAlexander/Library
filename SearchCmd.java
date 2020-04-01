@@ -27,7 +27,8 @@ public class SearchCmd extends LibraryCommand {
 
     @Override
     public void execute(LibraryData data) {
-        Objects.requireNonNull(data, "ERROR: data argument is null");
+        Objects.requireNonNull(data, "ERROR: LibraryData is null");
+        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
         boolean found = false;
         for (BookEntry book : books) {
