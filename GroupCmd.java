@@ -26,6 +26,7 @@ public class GroupCmd extends LibraryCommand {
     public GroupCmd(String argumentInput) { super(CommandType.GROUP, argumentInput); }
 
 
+    // TODO - javadoc once completed
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
@@ -33,6 +34,22 @@ public class GroupCmd extends LibraryCommand {
 
     }
 
+    // TODO - javadoc once completed
+    private void groupTitle(List<BookEntry> books){
+
+    }
+
+    // TODO - javadoc once completed
+    private void groupAuthor(List<BookEntry> books){
+
+    }
+
+    /**
+     * Checks that the arguments inputted are valid for this command
+     *
+     * @param argumentInput argument input for this command
+     * @return boolean value indicating whether the argument is valid or not
+     */
     @Override
     protected boolean parseArguments(String argumentInput) {
         Objects.requireNonNull(argumentInput, "ERROR: Argument is null");

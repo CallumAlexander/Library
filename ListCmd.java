@@ -20,6 +20,7 @@ public class ListCmd extends LibraryCommand {
     /**
      * Create the specified command and initialise it with
      * the given command arguments
+     *
      * @param argumentInput argument input as expected by the extending subclass.
      * @throws IllegalArgumentException if given arguments are invalid
      * @throws NullPointerException     if any of the given parameters are null.
@@ -29,6 +30,7 @@ public class ListCmd extends LibraryCommand {
 
     /**
      * Method that executes the command
+     *
      * @param data book data to be considered for command execution.
      * @throws NullPointerException if data is null
      */
@@ -52,9 +54,10 @@ public class ListCmd extends LibraryCommand {
     }
 
     /**
-     * Method that checks the inputted argument is valid
+     * Checks that the arguments inputted are valid for this command
+     *
      * @param argumentInput argument input for this command
-     * @return boolean value indicating whether the argument is valid
+     * @return boolean value indicating whether the argument is valid or not
      */
     @Override
     protected boolean parseArguments(String argumentInput){

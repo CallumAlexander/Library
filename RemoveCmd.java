@@ -38,6 +38,7 @@ public class RemoveCmd extends LibraryCommand {
 
     /**
      * Executes the remove command
+     *
      * @param data book data to be considered for command execution.
      * @throws NullPointerException if the library data is null.
      */
@@ -55,6 +56,7 @@ public class RemoveCmd extends LibraryCommand {
 
     /**
      * Removes the book associated with the title from the list of books
+     *
      * @param books - List of books containing all the books in the library
      */
     private void removeTitle(List<BookEntry> books){
@@ -74,6 +76,7 @@ public class RemoveCmd extends LibraryCommand {
 
     /**
      * Removes books associated with the author from the list of books
+     *
      * @param books - List of BookEntry containing all the books in the library
      */
     private void removeAuthor(List<BookEntry> books){
@@ -94,6 +97,7 @@ public class RemoveCmd extends LibraryCommand {
 
     /**
      * Checks that the arguments inputted are valid for this command
+     *
      * @param argumentInput argument input for this command
      * @return - boolean value indicating whether the arguments are valid or not
      */
@@ -119,6 +123,7 @@ public class RemoveCmd extends LibraryCommand {
 
     /**
      * Checks a string to see if it contains any whitespace
+     *
      * @param argument - String containing the argument to check
      * @return - boolean value indicating whether the argument contains whitespace
      * NOTE - No need to check for illegal/null argument as this is checked in parseArguments

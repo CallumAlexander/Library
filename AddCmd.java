@@ -12,8 +12,11 @@ public class AddCmd extends LibraryCommand {
     // Path instance field that stores the argument
     protected Path argument;
 
-    //Constant that stores the length of '.csv'
-    protected static final int EXTENSION_LENGTH = 4;
+    // String instance field that contains the required file extension
+    protected static final String EXTENSION = ".csv";
+
+    // Constant that stores the length of '.csv'
+    protected static final int EXTENSION_LENGTH = EXTENSION.length();
 
 
     // ** METHODS **
@@ -29,6 +32,7 @@ public class AddCmd extends LibraryCommand {
 
     /**
      * Method that executes the command
+     *
      * @param data book data to be considered for command execution.
      */
     @Override
@@ -40,7 +44,8 @@ public class AddCmd extends LibraryCommand {
 
 
     /**
-     * Method that checks the inputted argument is valid
+     * Checks that the arguments inputted are valid for this command
+     *
      * @param argumentInput argument input for this command
      * @return boolean value indicating whether the argument is valid
      */
@@ -55,7 +60,7 @@ public class AddCmd extends LibraryCommand {
 
         int len = argumentInput.length();
         String extension = argumentInput.substring(len-EXTENSION_LENGTH, len);
-        boolean returnValue = extension.equals(".csv");
+        boolean returnValue = extension.equals(EXTENSION);
         argument = Paths.get(argumentInput);
         return returnValue;
     }

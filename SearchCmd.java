@@ -43,6 +43,7 @@ public class SearchCmd extends LibraryCommand {
 
     /**
      * Checks that the arguments inputted are valid for this command
+     *
      * @param argumentInput argument input for this command
      * @return - boolean value indicating whether the argument is valid or not
      * @throws NullPointerException if argumentInput is null
@@ -58,7 +59,8 @@ public class SearchCmd extends LibraryCommand {
 
     /**
      * Checks a string to see if it contains any whitespace
-      * @param argument - String containing the argument to check
+     *
+     * @param argument - String containing the argument to check
      * @return - boolean value indicating whether the argument contains whitespace
      * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
      */
