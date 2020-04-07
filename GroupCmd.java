@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class GroupCmd extends LibraryCommand {
@@ -32,10 +35,54 @@ public class GroupCmd extends LibraryCommand {
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
         // TODO - check that the books array is not empty. if it is, print appropriate message
 
+        List<BookEntry> books = data.getBookData();
+        String header = "Grouped data by " + argument;
+        System.out.println(header);
+
+        if (argument.equals(TITLE_ARGUMENT)) groupTitle(books);
+        else groupAuthor(books);
+
     }
 
     // TODO - javadoc once completed
     private void groupTitle(List<BookEntry> books){
+
+        // Creating the Hashmap collection type used to group the books
+        HashMap<Character, List<BookEntry>> map = new HashMap<>();
+
+        for (BookEntry book : books){
+
+            // Creating the key as the first character in title
+            Character groupingToken = book.getTitle().toUpperCase().charAt(0);
+            char token = groupingToken;
+
+            // If the character already exists in the map
+            if (map.containsKey(token)){
+                List<BookEntry> list = map.get(token);
+                list.add(book);
+
+            // If the character does not exist in the map
+            } else{
+                List<BookEntry> list = new ArrayList<>();
+                list.add(book);
+                map.put(token, list);
+            }
+
+        }
+
+        for (char token : map.keySet()){
+            System.out.println("## " + token);
+            List<BookEntry> valueList = map.get(token);
+            for (BookEntry book : valueList){
+                System.out.println("\t" + book.getTitle());
+            }
+        }
+
+
+
+
+        // then create a temporary array list with all the books under a section
+        // then print the elements in the array list
 
     }
 
@@ -43,6 +90,8 @@ public class GroupCmd extends LibraryCommand {
     private void groupAuthor(List<BookEntry> books){
 
     }
+
+
 
     /**
      * Checks that the arguments inputted are valid for this command
@@ -57,3 +106,5 @@ public class GroupCmd extends LibraryCommand {
         return argument.equals(TITLE_ARGUMENT) || argument.equals(AUTHOR_ARGUMENT);
     }
 }
+
+// Goodbye, World!
