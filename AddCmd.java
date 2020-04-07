@@ -4,8 +4,6 @@ import java.util.Objects;
 
 public class AddCmd extends LibraryCommand {
 
-    // TODO - Implement IllegalArgumentExceptions for all methods
-
 
     // ** DATA **
 
@@ -38,7 +36,6 @@ public class AddCmd extends LibraryCommand {
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
-        // TODO - check that the books array is not empty. if it is, print appropriate message
         data.loadData(argument);
     }
 
@@ -51,10 +48,9 @@ public class AddCmd extends LibraryCommand {
      */
     @Override
     protected boolean parseArguments(String argumentInput) {
-        Objects.requireNonNull(argumentInput, "ERROR: argument is null");
+        Objects.requireNonNull(argumentInput, "ERROR: argument is null\n");
 
         if (argumentInput.length() < EXTENSION_LENGTH) {
-            System.err.print("ERROR: Not a valid argument");
             return false;
         }
 

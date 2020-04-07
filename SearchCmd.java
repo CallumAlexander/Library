@@ -5,8 +5,6 @@ import java.util.regex.Pattern;
 
 public class SearchCmd extends LibraryCommand {
 
-    // TODO - Implement IllegalArgumentExceptions for all methods
-
     // ** DATA **
 
     private String argument;
@@ -28,8 +26,9 @@ public class SearchCmd extends LibraryCommand {
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
-        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
+        if (books.isEmpty()) throw new NullPointerException("ERROR: Library is empty");
+
         boolean found = false;
         for (BookEntry book : books) {
             if (book.getTitle().toUpperCase().contains(argument.toUpperCase())) {

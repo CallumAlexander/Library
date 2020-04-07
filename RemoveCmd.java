@@ -7,11 +7,8 @@ public class RemoveCmd extends LibraryCommand {
 
     // ** DATA **
 
-    // String array containing the two arguments
-    //public String[] arguments = new String[2];
-
-    public String specifer;
-    public String val;
+    protected String specifer;
+    protected String val;
 
     // String instance field containing the argument for title
     protected static final String TITLE = "TITLE";
@@ -44,9 +41,10 @@ public class RemoveCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
+
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
-        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
+        if (books.isEmpty()) throw new NullPointerException("ERROR: Library is empty");
 
         if (specifer.equals(TITLE)) removeTitle(books);
         else removeAuthor(books);
@@ -60,10 +58,11 @@ public class RemoveCmd extends LibraryCommand {
      * @param books - List of books containing all the books in the library
      */
     private void removeTitle(List<BookEntry> books){
-        // TODO - Optimize search by combining searchcmd and removecmd searches
+
         boolean found = false;
         for (BookEntry book : books){
-            if (book.getTitle().toUpperCase().contains(val.toUpperCase())){    //Convert both to upper case to eliminate case sensitivity
+
+            if (book.getTitle().toUpperCase().contains(val.toUpperCase())){     //Convert both to upper case to eliminate case sensitivity
                 books.remove(book);
                 System.out.println(val + ": removed successfully.");
                 found = true;
@@ -80,10 +79,13 @@ public class RemoveCmd extends LibraryCommand {
      * @param books - List of BookEntry containing all the books in the library
      */
     private void removeAuthor(List<BookEntry> books){
+
         int count = 0;
 
         for (BookEntry book : books){
+
             for (int i = 0; i < book.getAuthors().length; i++){
+
                 if (book.getAuthors()[i].toUpperCase().contains(val.toUpperCase())){
                     books.remove(book);
                     count ++;
@@ -103,8 +105,9 @@ public class RemoveCmd extends LibraryCommand {
      */
     @Override
     protected boolean parseArguments(String argumentInput) {
+
         Objects.requireNonNull(argumentInput, "ERROR: argument is null");
-        String[] tempArgsAsArray = new String[2];
+        String[] tempArgsAsArray;
 
         // Checking if the whole string is blank
         if (argumentInput.isBlank()) return false;
@@ -129,6 +132,7 @@ public class RemoveCmd extends LibraryCommand {
      * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
      */
     private boolean containsWhitespace(String argument){
+
         Pattern whitespace = Pattern.compile("\\s");
         Matcher matcher = whitespace.matcher(argument);
         return matcher.find();
