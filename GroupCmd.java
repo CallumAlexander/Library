@@ -1,7 +1,7 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class GroupCmd extends LibraryCommand {
 
@@ -36,61 +36,82 @@ public class GroupCmd extends LibraryCommand {
         // TODO - check that the books array is not empty. if it is, print appropriate message
 
         List<BookEntry> books = data.getBookData();
+        if (books.isEmpty()) {
+            System.out.println("The library has no book entries.");
+            return;
+        }
         String header = "Grouped data by " + argument;
         System.out.println(header);
+        TreeMap<String, List<BookEntry>> map;
+        // Note - TreeMap is used instead of a HashMap, since the keys of TreeMap are sorted
 
-        if (argument.equals(TITLE_ARGUMENT)) groupTitle(books);
-        else groupAuthor(books);
-
-    }
-
-    // TODO - javadoc once completed
-    private void groupTitle(List<BookEntry> books){
-
-        // Creating the Hashmap collection type used to group the books
-        HashMap<Character, List<BookEntry>> map = new HashMap<>();
-
-        for (BookEntry book : books){
-
-            // Creating the key as the first character in title
-            Character groupingToken = book.getTitle().toUpperCase().charAt(0);
-            char token = groupingToken;
-
-            // If the character already exists in the map
-            if (map.containsKey(token)){
-                List<BookEntry> list = map.get(token);
-                list.add(book);
-
-            // If the character does not exist in the map
-            } else{
-                List<BookEntry> list = new ArrayList<>();
-                list.add(book);
-                map.put(token, list);
-            }
-
+        // Builds the correct TreeMap for the corresponding argument
+        if (argument.equals(TITLE_ARGUMENT)) {
+            map = buildTreeMap(books, true);
+        } else {
+            map = buildTreeMap(books, false);
         }
 
-        for (char token : map.keySet()){
+        // Prints the grouped books
+        for (String token : map.keySet()){
             System.out.println("## " + token);
-            List<BookEntry> valueList = map.get(token);
+            List<BookEntry> valueList = map.get(token); // Creates a separate list of all the values of a corresponding key
             for (BookEntry book : valueList){
                 System.out.println("\t" + book.getTitle());
             }
         }
 
-
-
-
-        // then create a temporary array list with all the books under a section
-        // then print the elements in the array list
-
     }
 
-    // TODO - javadoc once completed
-    private void groupAuthor(List<BookEntry> books){
+    // TODO - java doc
 
+    /**
+     * Builds up a TreeMap for the books based on the corresponding group argument
+     * @param books - List of BookEntry that contains all the books
+     * @param isTitle - Boolean indicating whether we are grouping via title
+     * @return
+     */
+    private TreeMap<String, List<BookEntry>> buildTreeMap(List<BookEntry> books, boolean isTitle){
+
+        // Creating the Hashmap collection type used to group the books
+        TreeMap<String, List<BookEntry>> map = new TreeMap<String, List<BookEntry>>();
+        String token;
+
+        for (BookEntry book : books){
+
+            // Creating the key as the first character in title
+            if (isTitle){
+                Character groupingToken = book.getTitle().toUpperCase().charAt(0);
+                token = String.valueOf(groupingToken);
+                checkAndInsert(map, book, token);
+
+            } else{
+                String[] authors = book.getAuthors();
+                for (int i = 0; i < authors.length; i++){
+                    token = authors[i];
+                    checkAndInsert(map, book, token);
+                }
+            }
+
+        }
+
+        return map;
     }
 
+    // TODO - java doc
+    private void checkAndInsert(TreeMap<String, List<BookEntry>> map, BookEntry book, String token){
+        // If the character already exists in the map
+        if (map.containsKey(token)){
+            List<BookEntry> list = map.get(token);
+            list.add(book);
+
+            // If the character does not exist in the map
+        } else{
+            List<BookEntry> list = new ArrayList<>();
+            list.add(book);
+            map.put(token, list);
+        }
+    }
 
 
     /**
