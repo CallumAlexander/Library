@@ -7,7 +7,10 @@ public class RemoveCmd extends LibraryCommand {
 
     // ** DATA **
 
+    // String instance field containing the specifier argument
     protected String specifer;
+
+    // String instance field containing the value argument
     protected String val;
 
     // String instance field containing the argument for title

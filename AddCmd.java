@@ -35,6 +35,7 @@ public class AddCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
+
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
         data.loadData(argument);
     }
@@ -48,6 +49,7 @@ public class AddCmd extends LibraryCommand {
      */
     @Override
     protected boolean parseArguments(String argumentInput) {
+
         Objects.requireNonNull(argumentInput, "ERROR: argument is null\n");
 
         if (argumentInput.length() < EXTENSION_LENGTH) {

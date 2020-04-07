@@ -7,7 +7,8 @@ public class SearchCmd extends LibraryCommand {
 
     // ** DATA **
 
-    private String argument;
+    // String instance field containing the arguments
+    protected String argument;
 
 
     // ** METHODS **
@@ -16,7 +17,6 @@ public class SearchCmd extends LibraryCommand {
      * Create the specified command and initialise it with
      * the given command argument.
      *
-     * @param type - specific command type
      * @param argumentInput - argument input as expected by the extending subclass.
      * @throws IllegalArgumentException if given arguments are invalid
      * @throws NullPointerException     if any of the given parameters are null.
@@ -25,12 +25,14 @@ public class SearchCmd extends LibraryCommand {
 
     @Override
     public void execute(LibraryData data) {
+
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
         List<BookEntry> books = data.getBookData();
         if (books.isEmpty()) throw new NullPointerException("ERROR: Library is empty");
 
         boolean found = false;
         for (BookEntry book : books) {
+
             if (book.getTitle().toUpperCase().contains(argument.toUpperCase())) {
                 System.out.println(book.getTitle());
                 found = true;
@@ -49,6 +51,7 @@ public class SearchCmd extends LibraryCommand {
      */
     @Override
     protected boolean parseArguments(String argumentInput){
+
         Objects.requireNonNull(argumentInput, "ERROR: Argument is null");
         argument = argumentInput.strip();
         if (argumentInput.isBlank()) return false;
@@ -64,6 +67,7 @@ public class SearchCmd extends LibraryCommand {
      * NOTE - No need to check for illegal/null argument as this is checked in parseArguments
      */
     private boolean containsWhitespace(String argument){
+
         Objects.requireNonNull(argument, "ERROR: Argument is null");
         Pattern whitespace = Pattern.compile("\\s");
         Matcher matcher = whitespace.matcher(argument);

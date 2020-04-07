@@ -11,12 +11,20 @@ public class BookEntry {
 
     // ** DATA **
 
-    private final String title;       // Name of the book
-    private final String[] authors;   // Array of authors
-    private final float rating;       // Rating of the book
-    private final String ISBN;        // ISBN of the book
-    private final int pages;          // Number of pages in the book
+    // String instance field containing the title of the book
+    private final String title;
 
+    // Array of String containing all the authors of the book
+    private final String[] authors;
+
+    // Float instance field containing the rating of the book
+    private final float rating;
+
+    // String instance field containing the ISBN of the book
+    private final String ISBN;
+
+    // Integer instance field containing the number of pages
+    private final int pages;
 
 
     // ** METHODS **
@@ -88,25 +96,27 @@ public class BookEntry {
     /**
      * Method that overrides the Object superclass method and
      * displays the object's data in a specific format
+     *
      * @return output - String containing the formatted string
      */
 
     @Override
-    public String toString(){
+    public String toString() {
 
-        String output = "";
+        StringBuilder builder = new StringBuilder();
 
-        output = output + title + "\n";
-        output = output + "by ";
-        for (int i = 0; i < authors.length-1; i++){
-            output = output + authors[i] + ", ";
+        builder.append(title).append("\n");
+        builder.append("by ");
+        for (int i = 0; i < authors.length - 1; i++) {
+            builder.append(authors[i]).append(", ");
         }
-        output = output + authors[authors.length-1]+ "\n";
-        output = output + "Rating: " + String.format("%.3g%n", rating);
-        output = output + "ISBN: " + ISBN + "\n";
-        output = output + pages + " pages";
+        builder.append(authors[authors.length - 1]).append("\n");
+        builder.append("Rating: ").append(String.format("%.3g%n", rating));
+        builder.append("ISBN: ").append(ISBN).append("\n");
+        builder.append(pages).append(" pages");
 
-        return output;
+
+        return builder.toString();
     }
 
     /**

@@ -4,8 +4,6 @@ import java.util.Objects;
 public class ListCmd extends LibraryCommand {
 
 
-    // TODO - Implement IllegalArgumentExceptions for all methods
-
     // ** DATA **
 
     // String instance field that stores the argument
@@ -36,8 +34,8 @@ public class ListCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
+
         Objects.requireNonNull(data, "ERROR: LibraryData instance is null");
-        // TODO - check that the books array is not empty. if it is, print appropriate message
         List<BookEntry> books = data.getBookData();
 
         // Prints header
@@ -61,6 +59,7 @@ public class ListCmd extends LibraryCommand {
      */
     @Override
     protected boolean parseArguments(String argumentInput){
+
         if (argumentInput == null || argumentInput.equals("")) argument = SHORT_ARGUMENT;
         else argument = argumentInput;
         return argument.equals(LONG_ARGUMENT) || argument.equals(SHORT_ARGUMENT);
