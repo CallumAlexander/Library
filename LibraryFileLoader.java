@@ -1,8 +1,10 @@
-import java.awt.print.Book;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /** 
  * Class responsible for loading
@@ -76,7 +78,7 @@ public class LibraryFileLoader {
         List<String> authorArrayList;
 
         if (fileContent == null){
-            System.err.print("ERROR: No content loaded before parsing");
+            System.err.print("ERROR: No content loaded before parsing.");
             return books;
         }
         for (int i = 1; i < fileContent.size(); i++){   //from index 1 to avoid the file header

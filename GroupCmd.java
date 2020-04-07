@@ -16,6 +16,8 @@ public class GroupCmd extends LibraryCommand {
     // A String instance field containing the author argument
     private static final String AUTHOR_ARGUMENT = "AUTHOR";
 
+
+
     // ** METHODS **
 
     /**
@@ -29,7 +31,19 @@ public class GroupCmd extends LibraryCommand {
     public GroupCmd(String argumentInput) { super(CommandType.GROUP, argumentInput); }
 
 
-    // TODO - javadoc once completed
+
+    /**
+     * Executes the group command
+     *
+     * METHOD OUTLINE:
+     *      1. Argument checking, and error handling
+     *      2. Checks if books is empty, if it is, prints corresponding message
+     *      3. Printing necessary header
+     *      4. Building TreeMaps for necessary grouping
+     *      5. Printing grouped books
+     *
+     * @param data book data to be considered for command execution.
+     */
     @Override
     public void execute(LibraryData data) {
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
@@ -40,10 +54,11 @@ public class GroupCmd extends LibraryCommand {
             System.out.println("The library has no book entries.");
             return;
         }
+
         String header = "Grouped data by " + argument;
         System.out.println(header);
-        TreeMap<String, List<BookEntry>> map;
-        // Note - TreeMap is used instead of a HashMap, since the keys of TreeMap are sorted
+
+        TreeMap<String, List<BookEntry>> map; // Note - TreeMap is used instead of a HashMap, since the keys of TreeMap are sorted
 
         // Builds the correct TreeMap for the corresponding argument
         if (argument.equals(TITLE_ARGUMENT)) {
@@ -63,32 +78,33 @@ public class GroupCmd extends LibraryCommand {
 
     }
 
-    // TODO - java doc
 
     /**
      * Builds up a TreeMap for the books based on the corresponding group argument
+     *
      * @param books - List of BookEntry that contains all the books
      * @param isTitle - Boolean indicating whether we are grouping via title
-     * @return
+     * @return map - A tree map with a String as the key, and a list of BookEntry as its values
      */
     private TreeMap<String, List<BookEntry>> buildTreeMap(List<BookEntry> books, boolean isTitle){
 
         // Creating the Hashmap collection type used to group the books
-        TreeMap<String, List<BookEntry>> map = new TreeMap<String, List<BookEntry>>();
+        TreeMap<String, List<BookEntry>> map = new TreeMap<>();
         String token;
 
         for (BookEntry book : books){
 
-            // Creating the key as the first character in title
             if (isTitle){
+                // Creating the key as the first character in title
                 Character groupingToken = book.getTitle().toUpperCase().charAt(0);
                 token = String.valueOf(groupingToken);
                 checkAndInsert(map, book, token);
 
             } else{
                 String[] authors = book.getAuthors();
-                for (int i = 0; i < authors.length; i++){
-                    token = authors[i];
+                // Performs the checkAndInsert for each author of every book
+                for (String author : authors) {
+                    token = author;
                     checkAndInsert(map, book, token);
                 }
             }
@@ -98,14 +114,22 @@ public class GroupCmd extends LibraryCommand {
         return map;
     }
 
-    // TODO - java doc
+
+    /**
+     * Maps and inserts a book to an existing key. If an existing key does not exist, the map creates one
+     * and inserts the book
+     *
+     * @param map - TreeMap containing the map
+     * @param book - BookEntry containing data about a certain book
+     * @param token - String containing the key value to check
+     */
     private void checkAndInsert(TreeMap<String, List<BookEntry>> map, BookEntry book, String token){
-        // If the character already exists in the map
+        // If the key already exists in the map
         if (map.containsKey(token)){
             List<BookEntry> list = map.get(token);
             list.add(book);
 
-            // If the character does not exist in the map
+            // If the key does not exist in the map
         } else{
             List<BookEntry> list = new ArrayList<>();
             list.add(book);
