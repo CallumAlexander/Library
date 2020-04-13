@@ -72,15 +72,18 @@ public class LibraryFileLoader {
     public List<BookEntry> parseFileContent() {
 
         ArrayList<BookEntry> books = new ArrayList<>();
+        // Handle is a placeholder String used to handle each line in the file
         String handle;
 
         String[] dataArray;
         List<String> authorArrayList;
 
+        // Checks whether file content is null or not
         if (fileContent == null){
             System.err.print("ERROR: No content loaded before parsing.");
             return books;
         }
+
         for (int i = 1; i < fileContent.size(); i++){   //from index 1 to avoid the file header
 
             handle = fileContent.get(i);

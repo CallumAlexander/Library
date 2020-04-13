@@ -7,8 +7,6 @@ import java.util.Objects;
  */
 public class BookEntry {
 
-    // TODO - Implement IllegalArgumentExceptions for all methods
-
     // ** DATA **
 
     // String instance field containing the title of the book

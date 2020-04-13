@@ -46,6 +46,7 @@ public class GroupCmd extends LibraryCommand {
      */
     @Override
     public void execute(LibraryData data) {
+
         Objects.requireNonNull(data, "ERROR: LibraryData is null");
 
         List<BookEntry> books = data.getBookData();
@@ -87,7 +88,7 @@ public class GroupCmd extends LibraryCommand {
      */
     private TreeMap<String, List<BookEntry>> buildTreeMap(List<BookEntry> books, boolean isTitle){
 
-        // Creating the Hashmap collection type used to group the books
+        // Creating the TreeMap collection type used to group the books
         TreeMap<String, List<BookEntry>> map = new TreeMap<>();
         String token;
 
